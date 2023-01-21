@@ -17,15 +17,15 @@ pipeline {
                     sh 'docker build -t ajayab05/kubernetes .'
                 }
             }
-        }
+        } 
         stage('Push image to hub'){
             steps{
                 script{
-                    withCredentials([string(credentialsId: 'dockerhubpwd', variable: 'dockerhubpwd')]) {
-                    sh 'docker login -u suresh394 -p ${dockerhubpwd}'
+                    withCredentials([string(credentialsId: 'dockerhubpwd', variable: 'dockerhubpawd')]) {
+                    sh 'docker login -u ajayab05 -p ${dockerhubpwd}'
                         
                     }
-                    sh 'docker push suresh394/kubernetes'
+                    sh 'docker push ajayab05/kubernetes'
                 }
             }
         }

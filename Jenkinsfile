@@ -7,7 +7,7 @@ pipeline {
     stages{
         stage('Build Maven'){
             steps{
-                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Ajayab05/devops-automation.git/']])
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/ajayab05/devops-automation.git']]])
                 sh 'mvn clean install'
             }
         }
@@ -17,12 +17,13 @@ pipeline {
                     sh 'docker build -t ajayab05/kubernetes .'
                 }
             }
-        } 
+        }
         stage('Push image to hub'){
             steps{
                 script{
-                    withCredentials([string(credentialsId: 'dockerhubpwd', variable: 'dockerhubpwd')] {
-                    sh 'docker login -u ajayab05 -p ${dockerhubpwd}'      
+                    withCredentials([string(credentialsId: 'dockerhubpwd', variable: 'dockerhubpwd')]) {
+                    sh 'docker login -u ajayab05 -p ${dockerhubpwd}'
+                        
                     }
                     sh 'docker push ajayab05/kubernetes'
                 }

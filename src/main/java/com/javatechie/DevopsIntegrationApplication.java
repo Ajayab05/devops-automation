@@ -11,7 +11,7 @@ public class DevopsIntegrationApplication {
 
 	@GetMapping
 	public String message(){
-		return "Hello Ajay This is you k8s deployment project test1 ";
+		return "Hello Ajay Automatiaon test ";
 	}
 
 	public static void main(String[] args) {
